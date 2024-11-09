@@ -15,8 +15,8 @@ public static class CorePartFinder
             if (p == null) { continue; }
 
             // Add collider
-            MeshCollider col = c.gameObject.AddComponent<MeshCollider>();
-            col.convex = true;
+            BoxCollider col = c.gameObject.AddComponent<BoxCollider>();
+            col.size = col.size + (Vector3.one * (DetectionManager.instance.ExtraBoxMargin * 2f));
             col.isTrigger = false;
             col.enabled = true;
 
