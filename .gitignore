@@ -182,6 +182,8 @@ cython_debug/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 /[Aa]ssets/[Ii]fc/
+/[Aa]ssets/[Ee]ditor/
+/[Aa]ssets/[Mm]eshes/
 
 
 # MemoryCaptures can get excessive in size.
