@@ -31,6 +31,11 @@ public class DetectionManager : MonoBehaviour
         else if (instance != this) { Destroy(gameObject); }
     }
 
+    private void Start()
+    {
+        FindCoreParts();
+    }
+
     [ContextMenu("FindCoreParts")]
     public void FindCoreParts()
     {
@@ -41,7 +46,7 @@ public class DetectionManager : MonoBehaviour
 
     public void DisableColoring()
     {
-        foreach(CollisionDetector d in coreParts)
+        foreach (CollisionDetector d in coreParts)
         { d.DisableAllColoring(); }
     }
 
@@ -50,7 +55,7 @@ public class DetectionManager : MonoBehaviour
     public void HighlightCoreParts(string ifcType, string linkedIfcType = "")
     {
         DisableColoring();
-        if(ifcType == "") { return; }
+        if (ifcType == "") { return; }
         foreach (CollisionDetector d in coreParts)
         { if (d.IfcProductData.IfcClass == ifcType) { d.EnableColoringByType(linkedIfcType); } }
     }

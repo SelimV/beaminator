@@ -11,6 +11,9 @@ public static class CorePartFinder
         List<CollisionDetector> coreParts = new List<CollisionDetector>();
         foreach (MeshRenderer c in potentialParts)
         {
+            IfcProductData p = c.GetComponent<IfcProductData>();
+            if (p == null) { continue; }
+
             // Add collider
             MeshCollider col = c.gameObject.AddComponent<MeshCollider>();
             col.convex = true;
