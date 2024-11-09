@@ -18,6 +18,8 @@ def classify_shape(coordinates_referenced):
         return "wall"
     elif y > 2000 and y < 15000 and x > 100 and x < 500 and z > 2000 and z < 15000:
         return "wall"
+    elif x < 200 and y < 200 and z < 200:
+        return "small"
     else:
         return "other"
 
@@ -106,9 +108,6 @@ def classify(file_name):
                         class_shape,
                     )
                 )
-
-        for id_shape, class_shape in shapes:
-            print(f"{id_shape=}, {class_shape=}")
 
         model = ifcopenshell.open("E:/code/junction2024/data/DummyModel.ifc")
 
