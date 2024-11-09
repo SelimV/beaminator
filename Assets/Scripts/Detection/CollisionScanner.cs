@@ -15,6 +15,7 @@ public class CollisionScanner : MonoBehaviour
     {
         coreParts = new List<CollisionDetector>(parts);
         this.enabled = true;
+        if (coreParts.Count == 0) { this.enabled = false; }
     }
 
     void FixedUpdate()

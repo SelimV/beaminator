@@ -20,7 +20,7 @@ public class DetectionManager : MonoBehaviour
     [Space(30)]
     [SerializeField] private string testTypeCore = "-";
     [SerializeField] private string testTypeChild = "-";
-
+    [SerializeField] private ProductSuggestion testSuggestion;
 
     private List<CollisionDetector> coreParts = new List<CollisionDetector>();
 
@@ -36,6 +36,7 @@ public class DetectionManager : MonoBehaviour
     {
         coreParts = CorePartFinder.FindCoreParts();
         collisionScanner.ScanCoreParts(coreParts);
+        testSuggestion = ProductSuggestion.CreateFromJSON();
     }
 
     public void DisableColoring()
