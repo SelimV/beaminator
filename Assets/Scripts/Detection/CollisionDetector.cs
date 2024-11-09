@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class CollisionDetector : MonoBehaviour
 {
-    [SerializeField] private MeshCollider collider;
+    [SerializeField] private BoxCollider collider;
     [SerializeField] private MeshRenderer rend;
     [SerializeField] private List<MeshRenderer> linkedObjects = new List<MeshRenderer>();
     [SerializeField] private IfcProductData productData;
@@ -13,11 +13,10 @@ public class CollisionDetector : MonoBehaviour
     public void Setup()
     {
         gameObject.tag = "CorePart";
-        collider = gameObject.GetComponent<MeshCollider>();
+        collider = gameObject.GetComponent<BoxCollider>();
         rend = gameObject.GetComponent<MeshRenderer>();
         productData = gameObject.GetComponent<IfcProductData>();
         this.enabled = false;
-        collider.convex = true;
         collider.isTrigger = false;
         collider.enabled = true;
     }
@@ -41,7 +40,6 @@ public class CollisionDetector : MonoBehaviour
         {
             linkedObjects.Remove(m);
             linkedObjects.Add(m);
-            if (m.gameObject.tag != "CorePart") { m.gameObject.tag = "LinkedPart"; }
             SetNonCoreColor(m, DetectionManager.instance.RedMat);
         }
     }
@@ -88,7 +86,7 @@ public class CollisionDetector : MonoBehaviour
 
     private void SetNonCoreColor(MeshRenderer r, Material m)
     {
-        if (r.gameObject.tag == "LinkedPart")
+        if (r.gameObject.tag == "Ifcpart")
         {
             r.material = m;
         }

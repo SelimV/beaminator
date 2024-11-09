@@ -6,6 +6,8 @@ public class DetectionManager : MonoBehaviour
     public static DetectionManager instance;
 
     [SerializeField] private CollisionScanner collisionScanner;
+    [SerializeField] private float extraBoxMargin = 0.01f;
+    public float ExtraBoxMargin => extraBoxMargin;
 
     [Space(30)]
     [SerializeField] private Material greyMat;
