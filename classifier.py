@@ -3,11 +3,14 @@ import ifcopenshell
 import ifcopenshell.api.pset
 
 
-def classify_shape(coordinates_referenced):
-    coordinates_referenced = np.array(coordinates_referenced)
-    coordinates_min = np.min(coordinates_referenced, axis=0)
-    coordinates_max = np.max(coordinates_referenced, axis=0)
-    x, y, z = coordinates_max - coordinates_min
+def classify_shape(dimensions, i_axis_z):
+    x_initial, y_initial, z_initial = dimensions
+    dimensions_rotated = [0, 0, 0]
+    dimensions_rotated[i_axis_z] = z_initial
+    dimensions_rotated[(i_axis_z + 1) % 3] = x_initial
+    dimensions_rotated[(i_axis_z + 2) % 3] = y_initial
+    x, y, z = dimensions_rotated
+
     if x > 2000 and x < 15000 and y > 150 and y < 1000 and z > 150 and z < 1000:
         return "beam"
     elif y > 2000 and y < 15000 and x > 150 and x < 1000 and z > 150 and z < 1000:
@@ -43,6 +46,7 @@ def classify(file_name):
                 )
 
         shapes = []
+        directions = []
 
         # TODO Safer parsing
         def parse_references(parameters_node):
@@ -80,14 +84,12 @@ def classify(file_name):
         for id_node, type_node, parameters_node in nodes:
             if type_node == "IFCPRODUCTDEFINITIONSHAPE":
                 id_reference = parse_references(parameters_node)[-1]
-                node_reference_prime = next(
+                node_reference = next(
                     node_reference
                     for node_reference in nodes
                     if node_reference[0] == id_reference
                 )
-                coordinates_referenced = get_referenced_coordinates(
-                    *node_reference_prime
-                )
+                coordinates_referenced = get_referenced_coordinates(*node_reference)
                 if (
                     len(
                         list(
@@ -101,23 +103,71 @@ def classify(file_name):
                 ):
                     continue
 
-                class_shape = classify_shape(coordinates_referenced)
+                coordinates_referenced = np.array(coordinates_referenced)
+                coordinates_min = np.min(coordinates_referenced, axis=0)
+                coordinates_max = np.max(coordinates_referenced, axis=0)
+                dimensions = coordinates_max - coordinates_min
                 shapes.append(
                     (
                         id_node,
-                        class_shape,
+                        dimensions,
                     )
                 )
+            elif type_node == "IFCLOCALPLACEMENT":
+                id_reference = parse_references(parameters_node)[-1]
+                node_reference = next(
+                    node_reference
+                    for node_reference in nodes
+                    if node_reference[0] == id_reference
+                )
+                (
+                    id_node_coordinate_directions,
+                    type_node_coordinate_directions,
+                    parameters_node_coordinate_directions,
+                ) = node_reference
+                if type_node_coordinate_directions != "IFCAXIS2PLACEMENT3D":
+                    continue
+                else:
+                    id_reference_direction_z = parse_references(
+                        parameters_node_coordinate_directions
+                    )[1]
+                    node_direction_z = next(
+                        node_reference
+                        for node_reference in nodes
+                        if node_reference[0] == id_reference_direction_z
+                    )
+
+                    if node_direction_z[1] != "IFCDIRECTION":
+                        continue
+                    else:
+                        direction_z = tuple(
+                            map(float, node_direction_z[2][1:-1].split(","))
+                        )
+                        for i_axis in range(3):
+                            if direction_z[i_axis] != 0:
+                                directions.append((id_node, i_axis))
+                                break
 
         model = ifcopenshell.open("E:/code/junction2024/data/DummyModel.ifc")
 
         def get_classification(node):
             ids_references_node = parse_references(node[2])
-            for id_shape, class_shape in shapes:
-                if id_shape in ids_references_node:
-                    return (node[0], class_shape)
 
-            return None
+            found_shape = False
+            for id_shape, dimensions_shape in shapes:
+                if id_shape in ids_references_node:
+                    found_shape = True
+                    break
+            found_direction = False
+            for id_direction, i_direction_z in directions:
+                if id_direction in ids_references_node:
+                    found_direction = True
+                    break
+
+            if found_direction and found_shape:
+                return (node[0], classify_shape(dimensions_shape, i_direction_z))
+            else:
+                return None
 
         nodes_classified = filter(
             lambda classification: classification is not None,
