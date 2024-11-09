@@ -1,3 +1,25 @@
+import numpy as np
+
+
+def classify_shape(coordinates_referenced):
+    coordinates_referenced = np.array(coordinates_referenced)
+    coordinates_min = np.min(coordinates_referenced, axis=0)
+    coordinates_max = np.max(coordinates_referenced, axis=0)
+    x,y,z = coordinates_max - coordinates_min
+    if x>2000 and x<15000 and y>150 and y<1000 and z>150 and z<1000:
+        return "beam"
+    elif y>2000 and y<15000 and x>150 and x<1000 and z>150 and z<1000:
+        return "beam"
+    elif x>200 and x<2000 and y>200 and y<2000 and z>2000 and z<15000:
+        return "column"
+    elif x>2000 and x<15000 and y>100 and y<500 and z>2000 and z<15000:
+        return "wall"
+    elif y>2000 and y<15000 and x>100 and x<500 and z>2000 and z<15000:
+        return "wall"
+    else:
+        return "other"
+
+
 def classify(file_name):
     with open(file_name, "r") as file:
         nodes = []
@@ -59,12 +81,32 @@ def classify(file_name):
                     for node_reference in nodes
                     if node_reference[0] == id_reference
                 )
+                coordinates_referenced = get_referenced_coordinates(
+                    *node_reference_prime
+                )
+                if (
+                    len(
+                        list(
+                            filter(
+                                lambda coordinates_point: len(coordinates_point) != 3,
+                                coordinates_referenced,
+                            )
+                        )
+                    )
+                    > 0
+                ):
+                    continue
+
+                class_shape = classify_shape(coordinates_referenced)
                 shapes.append(
-                    (id_node, get_referenced_coordinates(*node_reference_prime))
+                    (
+                        id_node,
+                        class_shape,
+                    )
                 )
 
-        for id_shape, coordinates_points_shape in shapes:
-            print(f"{id_shape=}, {coordinates_points_shape=}")
+        for id_shape, class_shape in shapes:
+            print(f"{id_shape=}, {class_shape=}")
 
 
 if __name__ == "__main__":
