@@ -40,7 +40,6 @@ public class CollisionDetector : MonoBehaviour
         {
             linkedObjects.Remove(m);
             linkedObjects.Add(m);
-            if (m.gameObject.tag != "CorePart") { m.gameObject.tag = "LinkedPart"; }
             SetNonCoreColor(m, DetectionManager.instance.RedMat);
         }
     }
@@ -87,7 +86,7 @@ public class CollisionDetector : MonoBehaviour
 
     private void SetNonCoreColor(MeshRenderer r, Material m)
     {
-        if (r.gameObject.tag == "LinkedPart")
+        if (r.gameObject.tag == "Ifcpart")
         {
             r.material = m;
         }

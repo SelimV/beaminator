@@ -20,6 +20,8 @@ public static class CorePartFinder
             col.isTrigger = false;
             col.enabled = true;
 
+            c.gameObject.tag = "IfcPart";
+
             //Validate part
             if (ValidatePotentialPart(c))
             {
