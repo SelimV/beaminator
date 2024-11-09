@@ -58,6 +58,9 @@ public class TestTestTest : MonoBehaviour
             for (int i = 0; i < childColliders.Length; i++)
             {
                 var bounds1 = childColliders[i].bounds;
+
+                if (childColliders[i].gameObject.tag == "LinkedPart")
+                    continue;
                 for (int j = i + 1; j < childColliders.Length; j++)
                 {
                     var bounds2 = childColliders[j].bounds;
@@ -68,17 +71,14 @@ public class TestTestTest : MonoBehaviour
 
                         Bounds originalBounds = GetIntersection(bounds1, bounds2);
 
-                        if (originalBounds.size.x < 0.1 ||
-                            originalBounds.size.y < 0.1 ||
-                            originalBounds.size.z < 0.1)
-                            continue;
 
                         // Create a new GameObject
                         GameObject largerObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        largerObject.name = $"{childColliders[i].gameObject.name}+{childColliders[j].gameObject}";
                         toBeDeleted.Add(largerObject);
 
                         // Calculate the new size
-                        Vector3 newSize = originalBounds.size * 1.5f;
+                        Vector3 newSize = originalBounds.size * 1f;
 
                         // Set the position of the new GameObject to match the original Bounds center
                         largerObject.transform.position = originalBounds.center;
