@@ -1,0 +1,88 @@
+{
+    "Column to foundation": [
+        {
+            "name": "BOLDA® Column Shoe",
+            "url": "https: //www.peikko.com/products/product/bolda/"
+        },
+        {
+            "name": "PPM® High-Strength Anchor Bolt",
+            "url": "https: //www.peikko.com/products/product/ppm-high-strength-anchor-bolt/"
+        },
+        {
+            "name": "ROOCO® Column Shoe",
+            "url": "https: //www.peikko.com/products/product/rooco-column-shoe/"
+        }
+    ],
+    "Column to column": [
+        {
+            "name": "HELKA® Column Shoe",
+            "url": "https: //www.peikko.com/products/product/helka/"
+        },
+        {
+            "name": "HPM® Rebar Anchor Bolt",
+            "url": "https: //www.peikko.com/products/product/hpm-rebar-anchor-bolt/"
+        },
+        {
+            "name": "ROOCO® Column Shoe",
+            "url": "https: //www.peikko.com/products/product/rooco-column-shoe/"
+        }
+    ],
+    "Column to beam": [
+        {
+            "name": "PCs® Corbel",
+            "url": "https: //www.peikko.com/products/product/pcs-corbel/"
+        },
+        {
+            "name": "PC® Beam Shoe",
+            "url": "https: //www.peikko.com/products/product/pc-beam-shoe/"
+        },
+        {
+            "name": "WELDA® Anchor Plate",
+            "url": "https: //www.peikko.com/products/product/welda-anchor-plate/"
+        },
+        {
+            "name": "RBC Beam Shoe",
+            "url": "https: //www.peikko.com/products/product/rbc-beam-shoe/"
+        },
+        {
+            "name": "PPM® High-Strength Anchor Bolt",
+            "url": "https: //www.peikko.com/products/product/ppm-high-strength-anchor-bolt/"
+        }
+    ],
+    "Beam to beam": [
+        {
+            "name": "WELDA® Anchor Plate",
+            "url": "https: //www.peikko.com/products/product/welda-anchor-plate/"
+        }
+    ],
+    "Wall to foundation": [
+        {
+            "name": "SUMO® Wall Shoe",
+            "url": "https: //www.peikko.com/products/product/sumo-wall-shoe/"
+        },
+        {
+            "name": "Wall Shoe Anchor Bolts",
+            "url": "https: //www.peikko.com/products/product/wall-shoe-anchor-bolts/"
+        }
+    ],
+    "Wall to wall": [
+        {
+            "name": "PVL® Connecting Loop",
+            "url": "https: //www.peikko.com/products/product/pvl-connecting-loop/"
+        },
+        {
+            "name": "WILORA® Connecting Rail",
+            "url": "https: //www.peikko.com/products/product/wilora/"
+        }
+    ],
+    "Wall to column": [
+        {
+            "name": "PVL® Connecting Loop",
+            "url": "https: //www.peikko.com/products/product/pvl-connecting-loop/"
+        },
+        {
+            "name": "WILORA® Connecting Rail",
+            "url": "https: //www.peikko.com/products/product/wilora/"
+        }
+    ]
+}
