@@ -23,23 +23,23 @@ public class ShowHideBuilding : MonoBehaviour
 
     private void AssignColliders()
     {
-        GameObject[] objects = targetObject.GetComponentsInChildren<GameObject>();
-        foreach (var o in objects)
-        {
-            var co = o.AddComponent<MeshCollider>();
-            co.convex = true;
-            //co.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+        //GameObject[] objects = targetObject.GetComponentsInChildren<GameObject>();
+        //foreach (var o in objects)
+        //{
+        //    var co = o.AddComponent<MeshCollider>();
+        //    co.convex = true;
+        //    //co.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
 
 
-            // Calculate the new size
-            Vector3 newSize = co.bounds.size * 1.01f;
+        //    // Calculate the new size
+        //    Vector3 newSize = co.bounds.size * 1.01f;
 
-            // Set the position of the new GameObject to match the original Bounds center
-            co.transform.position = co.bounds.center;
+        //    // Set the position of the new GameObject to match the original Bounds center
+        //    co.transform.position = co.bounds.center;
 
-            // Adjust the scale of the new GameObject
-            co.transform.localScale = newSize;
+        //    // Adjust the scale of the new GameObject
+        //    co.transform.localScale = newSize;
 
-        }
+        //}
     }
 }

@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Anchor
   - CorePart
-  - LinkedPart
+  - IfcPart
   layers:
   - Default
   - TransparentFX
