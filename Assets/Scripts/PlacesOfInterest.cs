@@ -5,6 +5,7 @@ public class TestTestTest : MonoBehaviour
 {
     public GameObject targetObject; // The object you want to toggle rendering modes on
     private bool isWireframe = false; // Track the current rendering mode
+    public Transform root;
     Material poiMat;
     Material defaultMat;
     List<GameObject> toBeDeleted = new List<GameObject>();
@@ -75,6 +76,7 @@ public class TestTestTest : MonoBehaviour
 
                         // Create a new GameObject
                         GameObject largerObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        largerObject.transform.parent = root;
                         largerObject.name = $"{childColliders[i].gameObject.name}+{childColliders[j].gameObject.name}";
                         toBeDeleted.Add(largerObject);
 
@@ -82,7 +84,7 @@ public class TestTestTest : MonoBehaviour
                         Vector3 newSize = originalBounds.size * 1f;
 
                         // Set the position of the new GameObject to match the original Bounds center
-                        largerObject.transform.position = originalBounds.center;
+                        largerObject.transform.localPosition = originalBounds.center;
 
                         // Adjust the scale of the new GameObject
                         largerObject.transform.localScale = newSize;
