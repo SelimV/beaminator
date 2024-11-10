@@ -20,8 +20,8 @@ public class DetectionManager : MonoBehaviour
     public Material RedMat => redMat;
 
     [Space(30)]
-    [SerializeField] private string testTypeCore = "-";
-    [SerializeField] private string testTypeChild = "-";
+    [SerializeField] private string testTypeCore = "";
+    [SerializeField] private string testTypeChild = "";
 
     private List<CollisionDetector> coreParts = new List<CollisionDetector>();
 
@@ -44,19 +44,28 @@ public class DetectionManager : MonoBehaviour
         collisionScanner.ScanCoreParts(coreParts);
     }
 
-    public void DisableColoring()
-    {
-        foreach (CollisionDetector d in coreParts)
-        { d.DisableAllColoring(); }
-    }
+    [ContextMenu("Disable All")]
+    public void DisableAllColoring()
+    {  DisableCoreParts("all", "all"); }
+
+    [ContextMenu("Enable All")]
+    public void EnableAllColoring()
+    { HighlightCoreParts("all", "all"); }
 
     [ContextMenu("Highlight by type")]
     public void TestHighlightCoreParts() { HighlightCoreParts(testTypeCore, testTypeChild); }
     public void HighlightCoreParts(string ifcType, string linkedIfcType = "")
     {
-        DisableColoring();
         if (ifcType == "") { return; }
         foreach (CollisionDetector d in coreParts)
-        { if (d.IfcProductData.IfcClass == ifcType) { d.EnableColoringByType(linkedIfcType); } }
+        { if (d.IfcClass == ifcType || ifcType == "all") { d.EnableColoringByType(linkedIfcType); } }
+    }
+    [ContextMenu("Disable by type")]
+    public void TestDisableCoreParts() { DisableCoreParts(testTypeCore, testTypeChild); }
+    public void DisableCoreParts(string ifcType, string linkedIfcType = "")
+    {
+        if (ifcType == "") { return; }
+        foreach (CollisionDetector d in coreParts)
+        { if (d.IfcClass == ifcType || ifcType == "all") { d.DisableAllColoring(); } }
     }
 }

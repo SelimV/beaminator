@@ -114,13 +114,13 @@ public class CollisionDetector : MonoBehaviour
     [ContextMenu("Highlight this object")]
     public void Highlight()
     {
-        DetectionManager.instance.DisableColoring();
+        DetectionManager.instance.DisableAllColoring();
         EnableAllColoring();
     }
 
     private void SetNonCoreColor(MeshRenderer r, Material m)
     {
-        if (r.gameObject.tag == "Ifcpart")
+        if (r.gameObject.tag == "IfcPart")
         {
             r.material = m;
         }
