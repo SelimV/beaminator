@@ -43,10 +43,14 @@ public static class CorePartFinder
 
     private static bool ValidatePotentialPart(MeshRenderer potentialPart)
     {
-        IfcProductData productData = potentialPart.GetComponent<IfcProductData>();
-        if (productData == null) { return false; }
+        string ifcClass = "";
+        IfcPropertySetData[] properties = potentialPart.gameObject.GetComponents<IfcPropertySetData>();
+        foreach (IfcPropertySetData prop in properties)
+        { if (prop.PropertySetName == "beaminator_classification") { ifcClass = prop.Properties[0].PropertyValue; } }
 
-        if (productData.IfcClass == "IfcColumn") { potentialPart.material = DetectionManager.instance.YellowMat; }
+        if (ifcClass == "") { return false; }
+
+        if (ifcClass == "column" || ifcClass == "beam" || ifcClass == "wall") { potentialPart.material = DetectionManager.instance.YellowMat; }
         else { return false; }
         return true;
     }
