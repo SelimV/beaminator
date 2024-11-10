@@ -11,9 +11,12 @@ public class ShowHideBuilding : MonoBehaviour
     {
         if (targetObject != null)
         {
-            // Toggle the active state of the target object
+            CorePartFinder.root = targetObject.transform;
+
             targetObject.SetActive(true);
-            AssignColliders();
+            DetectionManager.instance.FindCoreParts();
+            // Toggle the active state of the target object
+            //AssignColliders();
         }
         else
         {

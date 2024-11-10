@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections.Generic;
 
 public class CollisionScanner : MonoBehaviour
 {
+    public UnityEvent OnScanningEnd = new UnityEvent();
     private List<CollisionDetector> coreParts = new List<CollisionDetector>();
 
 
@@ -22,6 +24,6 @@ public class CollisionScanner : MonoBehaviour
     {
         coreParts[coreParts.Count - 1].Collide();
         coreParts.RemoveAt(coreParts.Count - 1);
-        if (coreParts.Count == 0) { this.enabled = false; }
+        if (coreParts.Count == 0) { this.enabled = false;  OnScanningEnd.Invoke(); }
     }
 }

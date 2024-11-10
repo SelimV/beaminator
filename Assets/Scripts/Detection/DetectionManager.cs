@@ -34,7 +34,7 @@ public class DetectionManager : MonoBehaviour
 
     private void Start()
     {
-        FindCoreParts();
+        //FindCoreParts();
     }
 
     [ContextMenu("FindCoreParts")]

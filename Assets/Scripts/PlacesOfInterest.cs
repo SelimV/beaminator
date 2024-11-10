@@ -40,7 +40,7 @@ public class TestTestTest : MonoBehaviour
         }
     }
 
-    public void SetWireframeMode(bool enableWireframe)
+    public void SetWireframeMode22222(bool enableWireframe)
     {
         if (!enableWireframe)
         {
@@ -84,10 +84,11 @@ public class TestTestTest : MonoBehaviour
                         Vector3 newSize = originalBounds.size * 1f;
 
                         // Set the position of the new GameObject to match the original Bounds center
-                        largerObject.transform.localPosition = originalBounds.center;
+                        largerObject.transform.position = originalBounds.center;
+                        largerObject.transform.localEulerAngles = Vector3.zero;
 
                         // Adjust the scale of the new GameObject
-                        largerObject.transform.localScale = newSize;
+                        largerObject.transform.localScale = new Vector3(largerObject.transform.parent.localScale.x *newSize.x, largerObject.transform.parent.localScale.y * newSize.y, largerObject.transform.parent.localScale.z * newSize.z);
 
                         // Optionally, adjust the material or other properties
                         Renderer renderer = largerObject.GetComponent<Renderer>();
@@ -122,6 +123,13 @@ public class TestTestTest : MonoBehaviour
         intersection.SetMinMax(min, max);
 
         return intersection;
+    }
+
+    public void SetWireframeMode(bool enableWireframe)
+    {
+        //targetObject.getchildr.GetComponentsInChildren<Collider>();
+        foreach (var go in CorePartFinder.placesOfInterest)
+            go.SetActive(enableWireframe);
     }
 
 }

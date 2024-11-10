@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class CollisionDetector : MonoBehaviour
 {
-    [SerializeField] private BoxCollider collider;
+    [SerializeField] public BoxCollider collider;
     [SerializeField] private MeshRenderer rend;
     [SerializeField] private List<IfcLink> linkedObjects = new List<IfcLink>();
     public List<IfcLink> LinkedObjects => linkedObjects;
