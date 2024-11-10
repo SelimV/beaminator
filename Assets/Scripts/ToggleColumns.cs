@@ -5,8 +5,10 @@ public class ToggleColumns : MonoBehaviour
     public string IfcType;
     public string IfcLinkType;
 
-    public void Toggle()
+    public void Toggle(bool state)
     {
-        DetectionManager.instance.HighlightCoreParts(IfcType, IfcLinkType);
+        if (state)
+        { DetectionManager.instance.HighlightCoreParts(IfcType, IfcLinkType); }
+        else { DetectionManager.instance.DisableCoreParts(IfcType, IfcLinkType); }
     }
 }
