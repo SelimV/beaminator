@@ -48,8 +48,6 @@ public class TestTestTest : MonoBehaviour
         }
         else
         {
-
-
             // Get all child colliders
             //Collider[] childColliders = GetComponentsInChildren<Collider>();
             Collider[] childColliders = targetObject.GetComponentsInChildren<Collider>();
@@ -59,10 +57,14 @@ public class TestTestTest : MonoBehaviour
             {
                 var bounds1 = childColliders[i].bounds;
 
-                if (childColliders[i].gameObject.tag == "LinkedPart")
+                if (childColliders[i].gameObject.tag == "IfcPart")
                     continue;
+                
                 for (int j = i + 1; j < childColliders.Length; j++)
                 {
+                    if (childColliders[j].gameObject.tag == "IfcPart")
+                        continue;
+
                     var bounds2 = childColliders[j].bounds;
                     if (bounds1.Intersects(bounds2))
                     {
@@ -71,10 +73,9 @@ public class TestTestTest : MonoBehaviour
 
                         Bounds originalBounds = GetIntersection(bounds1, bounds2);
 
-
                         // Create a new GameObject
                         GameObject largerObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        largerObject.name = $"{childColliders[i].gameObject.name}+{childColliders[j].gameObject}";
+                        largerObject.name = $"{childColliders[i].gameObject.name}+{childColliders[j].gameObject.name}";
                         toBeDeleted.Add(largerObject);
 
                         // Calculate the new size
